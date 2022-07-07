@@ -9,7 +9,9 @@
 
 pragma solidity ^0.8.7;
 
-contract Raffle {
+import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+
+contract Raffle is VRFConsumerBaseV2 {
     /*Error functions */
     error Raffle__NotEnoughETHEntered();
 
@@ -20,7 +22,7 @@ contract Raffle {
     /* Events */
     event RaffleEnter(address indexed player);
 
-    constructor(uint256 entranceFee) {
+    constructor(address vrfCoordinatorV2, uint256 entranceFee) VRFConsumerBaseV2(vrfCoordinatorV2) {
         i_entranceFee = entranceFee;
     }
 
@@ -36,7 +38,16 @@ contract Raffle {
         emit RaffleEnter(msg.sender);
     }
 
-    // function pickRandomWinner() {}
+    function requestRandomWinner() external {
+        // request the random number
+        // once we get it , do something with it
+        // 2 transaction process
+    }
+
+    function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
+        internal
+        override
+    {}
 
     // getter functions
     function getEntranceFee() public view returns (uint256) {
