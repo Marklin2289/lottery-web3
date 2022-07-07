@@ -28,6 +28,7 @@ contract Raffle is VRFConsumerBaseV2 {
 
     /* Events */
     event RaffleEnter(address indexed player);
+    event RequestedRaffleWinner(uint256 indexed requestId);
 
     constructor(
         address vrfCoordinatorV2,
@@ -59,13 +60,14 @@ contract Raffle is VRFConsumerBaseV2 {
         // request the random number
         // once we get it , do something with it
         // 2 transaction process
-        i_vrfCoordinator.requestRandomWords(
+        uint256 requestId = i_vrfCoordinator.requestRandomWords(
             i_gasLane,
             i_subscriptionId,
             REQUEST_CONFIRMATION,
             i_callbackGasLimit,
             NUM_WORDS
         );
+        emit RequestedRaffleWinner(requestId);
     }
 
     function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
