@@ -1,12 +1,14 @@
+const { network } = require("hardhat")
+
 module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
 
-    //get raffle contract
+    //how you deploy raffle contract
     const raffle = await deploy("Raffle", {
         from: deployer,
-        args: [],
+        args: [], //ton of args
         log: true,
-        waitConfirmations: 6,
+        waitConfirmations: network.config.blockConfirmations || 1,
     })
 }
