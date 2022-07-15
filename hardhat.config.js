@@ -54,4 +54,11 @@ module.exports = {
         // yarn hardhat verify --network <NETWORK><CONTRACT_ADDRESS><CONSTRUCTOR_PARAMETERS>
         apiKey: { rinkeby: ETHERSCAN_API_KEY },
     },
+    gasReporter: {
+        enabled: false,
+        currency: "USD",
+        outputFile: "gas-report.txt",
+        noColor: true,
+        coinmarketcap: COINMARKETCAP_API_KEY,
+    },
 }
