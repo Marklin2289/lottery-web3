@@ -89,4 +89,29 @@ const { assert, expect } = require("chai")
                   assert(upkeepNeeded)
               })
           })
+          describe("performUpkeep", function () {
+              it("can only run if checkUpkeep is true", async function () {
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  await network.provider.send("evm_increaseTime", [interval.toNumber() + 1])
+                  await network.provider.send("evm_mine", [])
+                  const tx = await raffle.performUpkeep([])
+                  assert(tx)
+              })
+              it("revert if checkup is false", async () => {
+                  await expect(raffle.performUpkeep([])).to.be.revertedWith(
+                      "Raffle__UpkeepNotNeeded"
+                  )
+              })
+              it("updates the raffle state and emits a requestId", async function () {
+                  await raffle.enterRaffle({ value: raffleEntranceFee })
+                  await network.provider.send("evm_increaseTime", [interval.toNumber() + 1])
+                  await network.provider.send("evm_mine", [])
+                  const txResponse = await raffle.performUpkeep("0x") //emits requestId
+                  const txReceipt = await txResponse.wait(1) //waits 1 block
+                  const requestId = await txReceipt.events[1].args.requestId
+                  const raffleState = await raffle.getRaffleState()
+                  assert(requestId.toNumber() > 0)
+                  assert(raffleState == 1) // 0 = open, 1 = calculating
+              })
+          })
       })
