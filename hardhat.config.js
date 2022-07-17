@@ -62,6 +62,6 @@ module.exports = {
         coinmarketcap: COINMARKETCAP_API_KEY,
     },
     mocha: {
-        timeout: 200000, // 200 seconds max for running tests
+        timeout: 500000, // 500 seconds max for running tests
     },
 }
