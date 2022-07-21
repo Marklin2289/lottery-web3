@@ -39,9 +39,9 @@ developmentChains.includes(network.name)
                               )
                               assert(endingTimestamp > startingTimeStamp)
                               resolve()
-                          } catch (e) {
-                              console.log(e)
-                              reject(e)
+                          } catch (error) {
+                              console.log(error)
+                              reject(error)
                           }
                       })
                       console.log("Entering Raffle...")
@@ -50,6 +50,7 @@ developmentChains.includes(network.name)
                       const winnerStartingBalance = await accounts[0].getBalance()
 
                       // and this code WONT complete until our listener has finished listening!
+                      //   testings
                   })
               })
           })
