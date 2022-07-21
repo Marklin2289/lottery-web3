@@ -40,7 +40,7 @@ developmentChains.includes(network.name)
                                   winnerEndingBalance.toString(),
                                   winnerStartingBalance.add(raffleEntranceFee).toString()
                               )
-                              assert(endingTimeStamp > startingTimeStamp)
+                              expect(endingTimeStamp).to.be.greaterThan(startingTimeStamp)
                               resolve()
                           } catch (error) {
                               console.log(error)
