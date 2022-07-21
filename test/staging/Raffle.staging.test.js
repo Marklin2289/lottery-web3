@@ -48,7 +48,12 @@ developmentChains.includes(network.name)
                       })
                   })
                   // entering the raffle :
-                  await raffle.enterRaffle({ value: raffleEntrance })
+                  //   await raffle.enterRaffle({ value: raffleEntrance })
+                  //   const winnerStartingBalance = await accounts[0].getBalance()
+                  console.log("Entering Raffle...")
+                  const tx = await raffle.enterRaffle({ value: raffleEntranceFee })
+                  await tx.wait(1)
+                  console.log("Ok, time to wait...")
                   const winnerStartingBalance = await accounts[0].getBalance()
 
                   //   this code WON'T complete until listener has finished listening:
